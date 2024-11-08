@@ -1,0 +1,31 @@
+﻿@model ClientPortalWeb.Models.Entities.Client
+
+<h1>Link Clients to Client: @Model.Name</h1>
+
+<form method="post" asp-action="LinkClients" asp-controller="Clients">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="clientId" value="@Model.ClientId" />
+
+    <h4>Select Clients to Link:</h4>
+
+    <div class="form-group">
+        <label for="clients">Available Clients:</label>
+
+        @if (ViewBag.AvailableClients != null && ViewBag.AvailableClients.Any())
+        {
+            <select id="clients" name="clientIdsToLink" class="form-control" multiple="multiple">
+                @foreach (var client in ViewBag.AvailableClients as List<ClientPortalWeb.Models.Entities.Client>)
+                {
+                    <option value="@client.ClientId">@client.Name</option>
+                }
+            </select>
+        }
+        else
+        {
+            <p>No available clients to link.</p>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Link Clients</button>
+</form>

@@ -1,0 +1,56 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<ClientPortalWeb.Models.Entities.Contact>
+
+<h1>Linked Contacts</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Contact Full Name</th>
+            <th>Contact Email Address</th>
+            <th></th>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var client in Model)
+            {
+                <tr>
+                    <td>@client.FullName</td>
+                    <td>@client.Email</td>
+                    <td>
+
+                        <div class="contact-card">
+
+                            <!-- Unlink button -->
+                            <a href="@Url.Action("UnlinkContact", "Contacts", new { contactId = client.ContactId, ContactId = client.ContactId })" class="btn btn-danger">
+                                Unlink Contact
+                            </a>
+                        </div>
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" asp-controller="Contacts" asp-action="Edit" asp-route-id="@client.ContactId">Edit</a>
+                    </td>
+
+                </tr>
+            }
+        }
+        else
+        {
+            <p>No clients available.</p>  <!-- Display message when the model is null or empty -->
+        }
+
+        <tr>
+        </tr>
+    </tbody>
+</table>

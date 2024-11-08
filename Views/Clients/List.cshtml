@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<ClientPortalWeb.Models.Entities.Client>
+
+<h1>Clients</h1>
+<a class="btn btn-primary btn-sm" href="/Clients/Add">New Client</a>
+<a class="btn btn-primary btn-sm" href="/Clients/Add4">View Linked Clients</a>
+<a class="btn btn-primary btn-sm" href="/Clients/LinkContacts">Link Clients</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ClientId</th>
+            <th>Name</th>
+            <th>Client Code</th>
+            <th>No of linked Contacts</th>
+            <th></th>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.ClientId</td>
+                <td>@client.Name</td>
+                <td>@client.Client_code</td>
+                <td>@client.No_of_linked_contacts</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Clients" asp-action="Edit" asp-route-id="@client.ClientId">Edit</a>
+                </td>
+
+            </tr>
+        }
+
+        <tr>
+</tr>
+    </tbody>
+</table>

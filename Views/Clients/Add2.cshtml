@@ -1,0 +1,60 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model List<ClientPortalWeb.Models.Entities.Contact>
+
+<h1>Contacts</h1>
+<a class="btn btn-primary btn-sm" href="/Clients/Add5">New Contact</a>
+<a class="btn btn-primary btn-sm" href="/Clients/Add3">View Linked Contacts</a>
+<a class="btn btn-primary btn-sm" href="/Clients/LinkContacts">Link Contacts</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Email Address</th>
+            <th>No of linked contacts</th>
+            <th></th>
+
+
+        </tr>
+
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+{
+            @foreach (var client in Model)
+        {
+            <tr>
+                <td>@client.FullName</td>
+                <td>@client.Email</td>
+                <td>@client.No_of_linked_clients</td>
+                <td>
+
+                    <div class="contact-card">
+
+                        <!-- Unlink button -->
+                        <a href="@Url.Action("UnlinkContact", "Clients", new { clientId = client.ClientId, contactId = client.ClientId })" class="btn btn-danger">
+                            Unlink Contact
+                        </a>
+                    </div>
+
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Clients" asp-action="Edit" asp-route-id="@client.ClientId">Edit</a>
+                </td>
+
+            </tr>
+        }
+}
+        else
+        {
+            <p>No clients available.</p>  <!-- Display message when the model is null or empty -->
+        }
+
+        <tr>
+        </tr>
+    </tbody>
+</table>

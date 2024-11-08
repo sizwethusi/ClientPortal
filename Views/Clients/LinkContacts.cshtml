@@ -1,0 +1,32 @@
+﻿@model ClientPortalWeb.Models.Entities.Contact
+
+
+<h1>Link Contacts to Client: @Model.FullName</h1>
+
+<form method="post" asp-action="LinkContacts" asp-controller="Clients">
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" name="clientId" value="@Model.ClientId" />
+
+    <h4>Select Contacts to Link:</h4>
+
+    <div class="form-group">
+        <label for="contacts">Available Contacts:</label>
+
+        @if (ViewBag.AvailableContacts != null && ViewBag.AvailableContacts.Any())
+        {
+            <select id="contacts" name="contactIds" class="form-control" multiple="multiple">
+                @foreach (var contact in ViewBag.AvailableContacts as List<ClientPortalWeb.Models.Entities.Contact>)
+                {
+                    <option value="@contact.ContactId">@contact.FullName - @contact.Email</option>
+                }
+            </select>
+        }
+        else
+        {
+            <p>No unlinked contacts available to link.</p>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Link Contacts</button>
+</form>
